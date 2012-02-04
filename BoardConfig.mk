@@ -21,7 +21,7 @@
 BOARD_USE_LEGACY_TOUCHSCREEN := true
 
 # Use the non-open-source parts, if they're present
-#include vendor/samsung/tass/BoardConfigVendor.mk
+-include vendor/samsung/tass/BoardConfigVendor.mk
 
 # Use the parts that are common between all tass
 include device/samsung/tass/BoardConfigCommon.mk

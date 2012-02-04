@@ -35,6 +35,7 @@ TARGET_NO_RADIOIMAGE := true
 TARGET_PREBUILT_RECOVERY_KERNEL := device/samsung/tass/recovery_kernel
 TARGET_RECOVERY_INITRC := device/samsung/tass/recovery.rc
 TARGET_BOARD_PLATFORM := msm7x27
+# TARGET_BOARD_PLATFORM := msm7k
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv6-vfp
 TARGET_CPU_ABI := armeabi-v6l
@@ -54,14 +55,14 @@ TARGET_BOARD_PLATFORM_GPU := qcom-adreno200
 TARGET_BOOTLOADER_BOARD_NAME := tass
 
 # assert
-TARGET_OTA_ASSERT_DEVICE := tass,GT-S5570
+TARGET_OTA_ASSERT_DEVICE := tass,GT-S5660
 
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
 
 BOARD_HAVE_FM_RADIO := true
 BOARD_GLOBAL_CFLAGS += -DHAVE_FM_RADIO
-BOARD_FM_DEVICE := bcm4325
+BOARD_FM_DEVICE := brcm2049
 
 # Wifi related defines
 BOARD_WPA_SUPPLICANT_DRIVER := AWEXT
@@ -77,7 +78,13 @@ TARGET_PROVIDES_INIT_TARGET_RC := true
 
 # OpenGL drivers config file path
 BOARD_EGL_CFG := device/samsung/tass/prebuilt/egl.cfg
+
+# Squadzone changes for better performance, graphic and audio
 BOARD_AVOID_DRAW_TEXTURE_EXTENSION := true
+TARGET_OVERLAY_ALWAYS_DETERMINES_FORMAT := true
+TARGET_USE_SOFTWARE_AUDIO_AAC := true
+BOARD_FORCE_STATIC_A2DP := true
+
 TARGET_LIBAGL_USE_GRALLOC_COPYBITS := true
 TARGET_DO_NOT_SETS_CAN_DRAW := true
 TARGET_SF_NEEDS_REAL_DIMENSIONS := true
@@ -121,6 +128,5 @@ BOARD_BML_BOOT                     := "/dev/block/bml8"
 BOARD_BML_RECOVERY                 := "/dev/block/bml9"
 
 BOARD_RECOVERY_HANDLES_MOUNT       := true
-BOARD_LDPI_RECOVERY := true
 #BOARD_CUSTOM_RECOVERY_KEYMAPPING   := ../../device/samsung/tass/recovery/recovery_ui.c
 BOARD_CUSTOM_GRAPHICS              := ../../../device/samsung/tass/recovery/graphics.c
