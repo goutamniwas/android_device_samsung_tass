@@ -1,5 +1,3 @@
-ifneq ($(BUILD_TINY_ANDROID),true)
-
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
@@ -40,6 +38,3 @@ LOCAL_SRC_FILES := AudioHardware.cpp
 LOCAL_CFLAGS += -fno-short-enums
 
 include $(BUILD_SHARED_LIBRARY)
-
-endif # not BUILD_TINY_ANDROID
-
