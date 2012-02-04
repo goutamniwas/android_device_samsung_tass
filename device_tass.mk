@@ -57,6 +57,8 @@ PRODUCT_PACKAGES += \
     rzscontrol \
     SamsungServiceMode \
     bdaddr_read \
+    toggleshutter \
+    patchlcs \
     dexpreopt \
     dump_image \
     e2fsck \
@@ -109,8 +111,6 @@ PRODUCT_COPY_FILES += \
     device/samsung/tass/prebuilt/AudioFilter.csv:system/etc/AudioFilter.csv \
     device/samsung/tass/prebuilt/media_profiles.xml:system/etc/media_profiles.xml \
     device/samsung/tass/prebuilt/audio.conf:system/etc/bluetooth/audio.conf \
-    device/samsung/tass/prebuilt/bootsound:system/bin/bootsound \
-    device/samsung/tass/prebuilt/poweron.ogg:system/media/poweron.ogg \
     device/samsung/tass/prebuilt/vold.fstab:system/etc/vold.fstab 
 
 ## keymap
@@ -122,18 +122,8 @@ PRODUCT_COPY_FILES += \
 
 ## Tweaks
 ## PRODUCT_COPY_FILES += \
-##     device/samsung/tass/prebuilt/30mountcache:system/etc/init.d/30mountcache \
-##     device/samsung/tass/prebuilt/70zipalign:system/etc/init.d/70zipalign \
-##     device/samsung/tass/prebuilt/zipalign:system/xbin/zipalign \
-##     device/samsung/tass/prebuilt/sdcardtune:system/bin/sdcardtune \
-##     device/samsung/tass/prebuilt/internets:system/bin/internets \
-##     device/samsung/tass/prebuilt/lowmemvalue:system/bin/lowmemvalue \
-##     device/samsung/tass/prebuilt/tweaksos:system/bin/tweaksos \
 ##     device/samsung/tass/prebuilt/97swap2sd:system/etc/init.d/97swap2sd \
-##     device/samsung/tass/prebuilt/98swapmarker:system/etc/init.d/98swapmarker \
-##     device/samsung/tass/prebuilt/swapper:system/bin/swapper \
-##     device/samsung/tass/prebuilt/be_photo:system/etc/be_photo \
-##     device/samsung/tass/prebuilt/be_movie:system/etc/be_movie \
+##     device/samsung/tass/prebuilt/98swapmarker:system/etc/init.d/98swapmarker 
 
 $(call inherit-product-if-exists, vendor/samsung/tass/tass-vendor.mk)
 

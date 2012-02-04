@@ -32,7 +32,7 @@ else
 LOCAL_SHARED_LIBRARIES+= libdl
 endif
 
-LOCAL_MODULE:= liblilgcamera
+LOCAL_MODULE:= libcamera
 include $(BUILD_SHARED_LIBRARY)
 
 endif
