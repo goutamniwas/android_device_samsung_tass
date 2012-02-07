@@ -27,7 +27,6 @@ TARGET_GLOBAL_CPPFLAGS += -mfpu=vfp -mfloat-abi=softfp -Os
 # against the traditional rules of inheritance).
 # for now
 USE_CAMERA_STUB := false
-BOARD_USE_FROYO_LIBCAMERA := true
 
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
@@ -74,6 +73,8 @@ WIFI_DRIVER_MODULE_ARG      := ""
 WIFI_DRIVER_MODULE_NAME     := ar6000
 
 WITH_JIT := false
+JS_ENGINE := v8
+HTTP := chrome
 
 TARGET_LIBAGL_USE_GRALLOC_COPYBITS := true
 TARGET_PROVIDES_INIT_TARGET_RC := true
