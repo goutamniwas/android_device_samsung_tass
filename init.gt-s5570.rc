@@ -10,10 +10,12 @@ on init
 on fs
 
 # Mount partitions
-	mount ext4 /dev/block/stl12 /system wait rw
-	mount ext4 /dev/block/stl12 /system wait ro remount
-	mount ext4 /dev/block/stl13 /data wait nosuid nodev
-	mount ext4 /dev/block/stl14 /cache wait nosuid nodev
+	mount ext4 /dev/block/stl12 /system
+        mount rfs /dev/stl12 /system ro check=no
+        mount ext4 /dev/block/stl13 /data nosuid nodev
+        mount rfs /dev/stl13 /data ro check=no
+        mount ext4 /dev/block/stl14 /cache nosuid nodev
+        mount rfs /dev/stl14 /cache nosuid nodev check=no
 
 # cpufreq configurations
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 245760
@@ -187,8 +189,8 @@ service setup_fs /system/bin/setup_fs /dev/block/stl13 /dev/block/stl14
 	disabled
 
 service toggleshutter /system/bin/toggleshutter
-    user system
-    group system
+    user root
+    group root
     oneshot
 	
 on property:ro.camera.sound.disabled=0

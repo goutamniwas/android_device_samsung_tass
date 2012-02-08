@@ -2,10 +2,10 @@
 # define _LCS_COMMON_H
 
 #ifndef OLDPATH
-# define OLDPATH "/system/media/audio/ui/"
+# define OLDPATH "/system/media/audio/notifications/"
 #endif
 #ifndef NEWPATH
-# define NEWPATH "/data/system/camera/"
+# define NEWPATH "/system/media/audio/ui/"
 #endif
 
 const char *filenames[] = {
