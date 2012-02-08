@@ -38,8 +38,17 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     make_ext4fs \
     brcm_patchram_plus \
+    copybit.tass \
+    gralloc.tass \
+    hwcomposer.default \
     bdaddr_read \
-    setup_fs 
+    setup_fs \
+    dexpreopt \
+    dump_image \
+    e2fsck \
+    erase_image \
+    flash_image \
+    screencap
 
 ## Vold config
 PRODUCT_COPY_FILES += \
@@ -72,11 +81,8 @@ PRODUCT_COPY_FILES += \
     device/samsung/tass/prebuilt/rfs_fat.ko:root/lib/modules/rfs_fat.ko \
     device/samsung/tass/prebuilt/rfs_glue.ko:root/lib/modules/rfs_glue.ko \
     device/samsung/tass/prebuilt/sec_param.ko:root/lib/modules/sec_param.ko \
-    device/samsung/tass/prebuilt/lzo_compress.ko:system/lib/modules/lzo_compress.ko \
-    device/samsung/tass/prebuilt/lzo_decompress.ko:system/lib/modules/lzo_decompress.ko \
     device/samsung/tass/TASS.rle:root/TASS.rle \
-    device/samsung/tass/init.gt-s5570.rc:root/init.gt-s5570.rc \
-    device/samsung/tass/prebuilt/ramzswap.ko:system/lib/modules/ramzswap.ko 
+    device/samsung/tass/init.gt-s5570.rc:root/init.gt-s5570.rc
 
 ## wifi module
 PRODUCT_COPY_FILES += \
@@ -110,7 +116,6 @@ PRODUCT_COPY_FILES += \
     device/samsung/tass/prebuilt/audio_effects.conf:system/etc/audio_effects.conf \
     device/samsung/tass/prebuilt/apns-conf.xml:system/etc/apns-conf.xml \
     device/samsung/tass/prebuilt/hosts:system/etc/hosts \
-    device/samsung/tass/prebuilt/init.local.rc:system/etc/init.local.rc \
     device/samsung/tass/prebuilt/sysctl.conf:system/etc/sysctl.conf \
     device/samsung/tass/prebuilt/media_profiles.xml:system/etc/media_profiles.xml 
 
@@ -144,6 +149,7 @@ PRODUCT_COPY_FILES += \
     device/samsung/tass/prebuilt/qmuxd:system/bin/qmuxd \
     device/samsung/tass/prebuilt/gps.msm7k.so:system/vendor/lib/hw/gps.msm7k.so \
     device/samsung/tass/prebuilt/gps.msm7k.so:system/lib/hw/gps.msm7k.so \
+    device/samsung/tass/prebuilt/gps.tass.so:system/lib/hw/gps.tass.so \
     device/samsung/tass/prebuilt/lights.msm7k.so:system/lib/hw/lights.msm7k.so \
     device/samsung/tass/prebuilt/sensors.default.so:system/lib/hw/sensors.default.so \
     device/samsung/tass/prebuilt/gpsd:system/vendor/bin/gpsd \
@@ -165,8 +171,8 @@ PRODUCT_COPY_FILES += \
 
 ## other media
 PRODUCT_COPY_FILES += \
-    device/samsung/tass/prebuilt/bootanimation.zip:system/media/bootanimation.zip \
-    device/samsung/tass/prebuilt/get_macaddrs:system/bin/get_macaddrs 
+    device/samsung/tass/prebuilt/get_macaddrs:system/bin/get_macaddrs \
+    device/samsung/tass/prebuilt/run_drm:system/bin/run_drm
 
 ## ril
 PRODUCT_COPY_FILES += \
@@ -189,5 +195,5 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # LDPI assets
 PRODUCT_LOCALES += en
 PRODUCT_AAPT_CONFIG := normal ldpi mdpi
-PRODUCT_AAPT_PREF_CONFIG := ldpi
+PRODUCT_AAPT_PREF_CONFIG := mdpi
 $(call inherit-product, build/target/product/full_base.mk)
