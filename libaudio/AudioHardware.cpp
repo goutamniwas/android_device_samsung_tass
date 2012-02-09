@@ -1,7 +1,6 @@
 /*
 ** Copyright 2008, The Android Open-Source Project
-** Copyright (c) 2010, Code Aurora Forum. All rights reserved.
-** Copyright (c) 2011, The CyanogenMod Project
+** Copyright (c) 2010-2011, Code Aurora Forum. All rights reserved.
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
@@ -91,7 +90,7 @@ static uint32_t SND_DEVICE_SPEAKER=-1;
 static uint32_t SND_DEVICE_MEDIA_SPEAKER=-1;
 static uint32_t SND_DEVICE_BT=-1;
 static uint32_t SND_DEVICE_BT_EC_OFF=32; // really DEVICE_BT_NSEC_OFF
-static uint32_t SND_DEVICE_HEADSET=31;  // really MEDIA_STEREO_HEADSET
+static uint32_t SND_DEVICE_HEADSET=-1;
 static uint32_t SND_DEVICE_HEADSET_AND_SPEAKER=26; // really FORCE_SPEAKER
 static uint32_t SND_DEVICE_IN_S_SADC_OUT_HANDSET=-1;
 static uint32_t SND_DEVICE_IN_S_SADC_OUT_SPEAKER_PHONE=-1;
@@ -423,7 +422,8 @@ status_t AudioHardware::setParameters(const String8& keyValuePairs)
         if(mMode != AudioSystem::MODE_IN_CALL){
            return NO_ERROR;
         }
-        doRouting(NULL);
+    } else {
+	mTtyMode = TTY_OFF;
     }
 
 #ifdef HAVE_FM_RADIO
@@ -461,7 +461,6 @@ String8 AudioHardware::getParameters(const String8& keys)
         param.addInt(String8("QCELP"), true );
         param.addInt(String8("EVRC"), true );
     }
-
     LOGV("AudioHardware::getParameters() %s", param.toString().string());
     return param.toString();
 }
@@ -1142,7 +1141,7 @@ status_t AudioHardware::setVoiceVolume(float v)
         v = 1.0;
     }
 
-    int vol = lrint(v * 6.0) + 1;
+    int vol = lrint(v * 7.0);
     LOGD("setVoiceVolume(%f)\n", v);
     LOGI("Setting in-call volume to %d (available range is 0 to 7)\n", vol);
 
@@ -1370,7 +1369,6 @@ status_t AudioHardware::doRouting(AudioStreamInMSM72xx *input)
                 LOGI("Routing audio to Wired Headset\n");
                 new_snd_device = SND_DEVICE_HEADSET;
                 new_post_proc_feature_mask = (ADRC_ENABLE | EQ_ENABLE | RX_IIR_ENABLE | MBADRC_ENABLE);
-
             }
         } else if (outputDevices & AudioSystem::DEVICE_OUT_WIRED_HEADPHONE) {
             if (mFmRadioEnabled) {
@@ -2035,6 +2033,7 @@ static int msm72xx_enable_preproc(bool state)
                LOGE("set TX IIR filter error.");
             }
         }
+
         if (state == true) {
             /*Setting AUDPRE_ENABLE*/
             if (ioctl(fd, AUDIO_ENABLE_AUDPRE, &enable_preproc_mask[audpre_index]) < 0) {
@@ -2050,7 +2049,6 @@ static int msm72xx_enable_preproc(bool state)
     }
 
     return NO_ERROR;
-
 }
 
 AudioHardware::AudioStreamInMSM72xx::~AudioStreamInMSM72xx()
@@ -2220,6 +2218,7 @@ status_t AudioHardware::AudioStreamInMSM72xx::setParameters(const String8& keyVa
 }
 
 #ifdef HAVE_FM_RADIO
+
 status_t AudioHardware::setFmVolume(float v)
 {
     unsigned int VolValue = (unsigned int)(AudioSystem::logToLinear(v));
@@ -2260,3 +2259,4 @@ extern "C" AudioHardwareInterface* createAudioHardware(void) {
 }
 
 }; // namespace android
+
