@@ -27,7 +27,7 @@
 int TOUCH_CONTROL_DEBUG = 0;
 
 //In this case MENU_SELECT icon has maximum possible height.
-#define MENU_MAX_HEIGHT 80 //gr_get_height(gMenuIcon[MENU_SELECT])    //Maximum allowed height for navigation icons
+#define MENU_MAX_HEIGHT 40 //gr_get_height(gMenuIcon[MENU_SELECT])    //Maximum allowed height for navigation icons
 
 //Device specific boundaries for touch recognition
 /*  
@@ -47,7 +47,9 @@ int maxY=320;    //Set to 0 for debugging
 int resX=240;    //Value obtained from function 'gr_fb_width()'
 int resY=320;    //Value obtained from function 'gr_fb_height()'
 
-char* MENU_HEADERS[] = { NULL };
+//char* MENU_HEADERS[] = { NULL };
+char* MENU_HEADERS[] = { "Galaxy Mini [Lilg]",
+                         NULL };
 
 char* MENU_ITEMS[] = { "reboot system now",
                        "apply update from sdcard",
