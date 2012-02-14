@@ -39,9 +39,9 @@ PRODUCT_PACKAGES += \
     make_ext4fs \
     brcm_patchram_plus \
     audio.a2dp.default \
-    copybit.tass \
-    gralloc.tass \
+    gralloc.msm7x27 \
     lights.tass \
+    camera.tass \
     gps.tass \
     hwcomposer.default \
     bdaddr_read \
@@ -189,9 +189,38 @@ PRODUCT_COPY_FILES += \
     device/samsung/tass/prebuilt/20userinit:system/etc/init.d/20userinit \
     device/samsung/tass/prebuilt/99complete:system/etc/init.d/99complete 
 
+## Camera
+PRODUCT_COPY_FILES += \
+    device/samsung/tass/prebuilt/libcamera.so:system/lib/libcamera.so \
+    device/samsung/tass/prebuilt/liboemcamera.so:system/lib/liboemcamera.so \
+
 PRODUCT_PROPERTY_OVERRIDES += \
     keyguard.no_require_sim=true \
     ro.com.android.dateformat=dd-MM-yyyy \
+
+PRODUCT_PROPERTY_OVERRIDES += debug.sf.hw=1
+PRODUCT_PROPERTY_OVERRIDES += debug.composition.type=mdp
+PRODUCT_PROPERTY_OVERRIDES += debug.gr.numframebuffers=2
+
+
+# HardwareRenderer properties
+# dirty_regions: "false" to disable partial invalidates, override if enabletr=true
+PRODUCT_PROPERTY_OVERRIDES += \
+    hwui.render_dirty_regions=false \
+    hwui.disable_vsync=true \
+    hwui.print_config=choice \
+    debug.enabletr=false
+
+# Misc properties
+# events_per_sec: default 90
+PRODUCT_PROPERTY_OVERRIDES += \
+    pm.sleep_mode=true \
+    ro.telephony.call_ring.delay=2 \
+    net.tcp.buffersize.default=4096,87380,256960,4096,16384,256960 \
+    net.tcp.buffersize.wifi=4096,87380,256960,4096,16384,256960 \
+    net.tcp.buffersize.umts=4096,87380,256960,4096,16384,256960 \
+    net.tcp.buffersize.gprs=4096,87380,256960,4096,16384,256960 \
+    net.tcp.buffersize.edge=4096,87380,256960,4096,16384,256960
 
 PRODUCT_LOCALES := en_GB
 # LDPI assets

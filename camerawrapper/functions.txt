@@ -2,7 +2,7 @@
          U AMCM_RegisterEx
 0000c0f1 T HAL_getCameraInfo
 0000ca7d T HAL_getNumberOfCameras
-000198a5 T HAL_openCameraHardware
+000198a5 T openCameraHardware
 00020b7c B LINK_cam_conf
 00020b80 B LINK_cam_frame
 00020b98 B LINK_camframe_add_frame
