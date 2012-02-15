@@ -19,7 +19,7 @@
 
 #include <cutils/log.h>
 
-#include "msm_mdp.h"
+#include <linux/msm_mdp.h>
 #include <linux/fb.h>
 
 #include <stdint.h>
@@ -34,7 +34,7 @@
 
 #include <hardware/copybit.h>
 
-#include "gralloc_priv.h"
+#include "../libgralloc/gralloc_priv.h"
 
 #define DEBUG_MDP_ERRORS 1
 
@@ -119,15 +119,13 @@ static void intersect(struct copybit_rect_t *out,
 /** convert COPYBIT_FORMAT to MDP format */
 static int get_format(int format) {
     switch (format) {
-    case HAL_PIXEL_FORMAT_RGB_565:       return MDP_RGB_565;
-    case HAL_PIXEL_FORMAT_RGBX_8888:     return MDP_RGBX_8888;
-    case HAL_PIXEL_FORMAT_RGB_888:       return MDP_RGB_888;
-    case HAL_PIXEL_FORMAT_RGBA_8888:     return MDP_RGBA_8888;
-    case HAL_PIXEL_FORMAT_BGRA_8888:     return MDP_BGRA_8888;
-//    case HAL_PIXEL_FORMAT_YCrCb_422_SP:  return MDP_Y_CBCR_H2V1;
-    case HAL_PIXEL_FORMAT_YCrCb_420_SP:  return MDP_Y_CBCR_H2V2;
-    case HAL_PIXEL_FORMAT_YCbCr_422_SP:  return MDP_Y_CRCB_H2V1;
-//    case HAL_PIXEL_FORMAT_YCbCr_420_SP:  return MDP_Y_CRCB_H2V2;
+    case COPYBIT_FORMAT_RGB_565:       return MDP_RGB_565;
+    case COPYBIT_FORMAT_RGBX_8888:     return MDP_RGBX_8888;
+    case COPYBIT_FORMAT_RGB_888:       return MDP_RGB_888;
+    case COPYBIT_FORMAT_RGBA_8888:     return MDP_RGBA_8888;
+    case COPYBIT_FORMAT_BGRA_8888:     return MDP_BGRA_8888;
+    case COPYBIT_FORMAT_YCrCb_420_SP:  return MDP_Y_CBCR_H2V2;
+    case COPYBIT_FORMAT_YCbCr_422_SP:  return MDP_Y_CRCB_H2V1;
     }
     return -1;
 }
@@ -136,28 +134,22 @@ static int get_format(int format) {
 static void set_image(struct mdp_img *img, const struct copybit_image_t *rhs) 
 {
     private_handle_t* hnd = (private_handle_t*)rhs->handle;
+    if(hnd == NULL){
+        LOGE("copybit: Invalid handle");
+        return;
+    }
     img->width      = rhs->w;
     img->height     = rhs->h;
     img->format     = get_format(rhs->format);
     img->offset     = hnd->offset;
-    #if defined(COPYBIT_MSM7K)
-        #if defined(USE_ASHMEM) && (TARGET_7x27)
-             img->memory_id = hnd->fd;
-        #else //USE_ASHMEM not defined
-             img->memory_id = hnd->fd;
-        #endif //end USE_ASHMEM
-    #else
-        img->memory_id  = hnd->fd;
-    #endif
+    img->memory_id  = hnd->fd;
 }
 /** setup rectangles */
 static void set_rects(struct copybit_context_t *dev,
                       struct mdp_blit_req *e,
                       const struct copybit_rect_t *dst,
                       const struct copybit_rect_t *src,
-                      const struct copybit_rect_t *scissor,
-                      uint32_t padding
-) {
+                      const struct copybit_rect_t *scissor) {
     struct copybit_rect_t clip;
     intersect(&clip, scissor, dst);
 
@@ -185,19 +177,10 @@ static void set_rects(struct copybit_context_t *dev,
     MULDIV(&e->src_rect.x, &e->src_rect.w, src->r - src->l, W);
     MULDIV(&e->src_rect.y, &e->src_rect.h, src->b - src->t, H);
     if (dev->mFlags & COPYBIT_TRANSFORM_FLIP_V) {
-        if (dev->mFlags & COPYBIT_TRANSFORM_ROT_90) {
-            e->src_rect.x = e->src.width - (e->src_rect.x + e->src_rect.w) - padding;
-        }else{
-            e->src_rect.y = e->src.height - (e->src_rect.y + e->src_rect.h);
-        }
+        e->src_rect.y = e->src.height - (e->src_rect.y + e->src_rect.h);
     }
-
     if (dev->mFlags & COPYBIT_TRANSFORM_FLIP_H) {
-        if (dev->mFlags & COPYBIT_TRANSFORM_ROT_90) {
-            e->src_rect.y = e->src.height - (e->src_rect.y + e->src_rect.h);
-        }else{
-            e->src_rect.x = e->src.width - (e->src_rect.x + e->src_rect.w) - padding;
-        }
+        e->src_rect.x = e->src.width  - (e->src_rect.x + e->src_rect.w);
     }
 }
 
@@ -366,10 +349,10 @@ static int stretch_copybit(
         if (ctx->mAlpha < 255) {
             switch (src->format) {
                 // we don't support plane alpha with RGBA formats
-                case HAL_PIXEL_FORMAT_RGBA_8888:
-                case HAL_PIXEL_FORMAT_BGRA_8888:
-                case HAL_PIXEL_FORMAT_RGBA_5551:
-                case HAL_PIXEL_FORMAT_RGBA_4444:
+                case COPYBIT_FORMAT_RGBA_8888:
+                case COPYBIT_FORMAT_BGRA_8888:
+                case COPYBIT_FORMAT_RGBA_5551:
+                case COPYBIT_FORMAT_RGBA_4444:
                     return -EINVAL;
             }
         }
@@ -395,11 +378,14 @@ static int stretch_copybit(
             intersect(&clip, &bounds, &clip);
             mdp_blit_req* req = &list.req[list.count];
             int flags = 0;
-
+            private_handle_t* src_hnd = (private_handle_t*)src->handle;
+            if(src_hnd->flags & private_handle_t::PRIV_FLAGS_DO_NOT_FLUSH) {
+                flags |=  MDP_BLIT_NON_CACHED;
+            }
             set_infos(ctx, req, flags);
             set_image(&req->dst, dst);
             set_image(&req->src, src);
-            set_rects(ctx, req, dst_rect, src_rect, &clip, 0);//src->padding);
+            set_rects(ctx, req, dst_rect, src_rect, &clip);
 
             if (req->src_rect.w<=0 || req->src_rect.h<=0)
                 continue;
@@ -466,7 +452,7 @@ static int open_copybit(const struct hw_module_t* module, const char* name,
     ctx->mAlpha = MDP_ALPHA_NOP;
     ctx->mFlags = 0;
     ctx->mFD = open("/dev/graphics/fb0", O_RDWR, 0);
-    
+
     if (ctx->mFD < 0) {
         status = errno;
         LOGE("Error opening frame buffer errno=%d (%s)",
@@ -495,3 +481,4 @@ static int open_copybit(const struct hw_module_t* module, const char* name,
     }
     return status;
 }
+

@@ -17,7 +17,7 @@ video.accelerate.hw=1
 ro.telephony.call_ring.delay=0
 ro.ril.disable.power.collapse=0
 persist.sys.use_dithering=1
-ro.sf.hwrotation=0
+ro.sf.hwrotation=1
 persist.sys.purgeable_assets=1
 
 # RIL
@@ -73,6 +73,6 @@ ro.com.google.locationfeatures=1
 ro.setupwizard.enable_bypass=1
 dalvik.vm.lockprof.threshold=500
 dalvik.vm.dexopt-flags=m=y
-dalvik.vm.heapsize=64m
+dalvik.vm.heapsize=32m
 dalvik.vm.execution-mode=int:jit
 dalvik.vm.dexopt-data-only=1
