@@ -57,12 +57,12 @@ PRODUCT_PACKAGES += \
     rzscontrol \
     SamsungServiceMode \
     bdaddr_read \
-    toggleshutter \
-    patchlcs \
     dexpreopt \
     dump_image \
     e2fsck \
     setup_fs \
+    toggleshutter \
+    patchlcs \
     erase_image \
     flash_image \
     screencap
@@ -79,13 +79,11 @@ PRODUCT_COPY_FILES += \
 ## Hardware properties 
 PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
-    frameworks/base/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
     frameworks/base/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
     frameworks/base/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
     frameworks/base/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
     frameworks/base/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
     frameworks/base/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
-    frameworks/base/data/etc/android.hardware.touchscreen.multitouch.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
     frameworks/base/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
     frameworks/base/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml
 
@@ -121,11 +119,6 @@ PRODUCT_COPY_FILES += \
     device/samsung/tass/prebuilt/sec_jack.kl:system/usr/keylayout/sec_jack.kl \
     device/samsung/tass/prebuilt/sec_key.kl:system/usr/keylayout/sec_key.kl \
     device/samsung/tass/prebuilt/sec_key.kcm.bin:system/usr/keychars/sec_key.kcm.bin
-
-## Tweaks
-## PRODUCT_COPY_FILES += \
-##     device/samsung/tass/prebuilt/97swap2sd:system/etc/init.d/97swap2sd \
-##     device/samsung/tass/prebuilt/98swapmarker:system/etc/init.d/98swapmarker 
 
 $(call inherit-product-if-exists, vendor/samsung/tass/tass-vendor.mk)
 
