@@ -63,3 +63,4 @@ debug.performance.tuning=1
 video.accelerate.hw=1
 ro.telephony.call_ring.delay=0
 ro.ril.disable.power.collapse=0
+dalvik.vm.heapsize=24m
