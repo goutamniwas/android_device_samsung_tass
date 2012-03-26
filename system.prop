@@ -61,6 +61,7 @@ media.stagefright.enable-player=true
 windowsmgr.max_events_per_sec=150
 debug.performance.tuning=1
 video.accelerate.hw=1
+ro.compcache.default=0
 ro.telephony.call_ring.delay=0
 ro.ril.disable.power.collapse=0
 dalvik.vm.heapsize=24m
