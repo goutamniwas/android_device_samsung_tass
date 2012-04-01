@@ -113,4 +113,6 @@
          It is recommended that this value be no more than 250 ms.
          This feature should be disabled for most devices. -->
     <integer name="config_virtualKeyQuietTimeMillis">200</integer>
+
+    <string name="config_datause_iface">pdp0</string>
 </resources>
