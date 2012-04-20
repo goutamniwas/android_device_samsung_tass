@@ -91,8 +91,6 @@ PRODUCT_COPY_FILES += \
     device/samsung/tass/ueventd.gt-s5570.rc:root/ueventd.gt-s5570.rc \
     device/samsung/tass/prebuilt/fsr.ko:root/lib/modules/fsr.ko \
     device/samsung/tass/prebuilt/fsr_stl.ko:root/lib/modules/fsr_stl.ko \
-    device/samsung/tass/prebuilt/rfs_fat.ko:root/lib/modules/rfs_fat.ko \
-    device/samsung/tass/prebuilt/rfs_glue.ko:root/lib/modules/rfs_glue.ko \
     device/samsung/tass/prebuilt/sec_param.ko:root/lib/modules/sec_param.ko \
     device/samsung/tass/TASS.rle:root/TASS.rle \
     device/samsung/tass/init.gt-s5570.rc:root/init.gt-s5570.rc
@@ -101,6 +99,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/samsung/tass/prebuilt/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
     device/samsung/tass/prebuilt/hostapd.conf:system/etc/wifi/hostapd.conf \
+    device/samsung/tass/prebuilt/ar6000.ko:system/wifi/ar6000.ko \
     device/samsung/tass/prebuilt/get_macaddrs:system/bin/get_macaddrs \
     device/samsung/tass/prebuilt/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf 
 
@@ -108,6 +107,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/samsung/tass/prebuilt/AutoVolumeControl.txt:system/etc/AutoVolumeControl.txt \
     device/samsung/tass/prebuilt/AudioFilter.csv:system/etc/AudioFilter.csv \
+    device/samsung/tass/prebuilt/audio_effects.conf:system/etc/audio_effects.conf \
     device/samsung/tass/prebuilt/media_profiles.xml:system/etc/media_profiles.xml \
     device/samsung/tass/prebuilt/audio.conf:system/etc/bluetooth/audio.conf \
     device/samsung/tass/prebuilt/vold.fstab:system/etc/vold.fstab 
@@ -118,6 +118,15 @@ PRODUCT_COPY_FILES += \
     device/samsung/tass/prebuilt/sec_jack.kl:system/usr/keylayout/sec_jack.kl \
     device/samsung/tass/prebuilt/sec_key.kl:system/usr/keylayout/sec_key.kl \
     device/samsung/tass/prebuilt/sec_key.kcm.bin:system/usr/keychars/sec_key.kcm.bin
+
+## Egl
+PRODUCT_COPY_FILES += \
+    device/samsung/tass/prebuilt/egl/libGLESv1_CM_adreno200.so:system/lib/egl/libGLESv1_CM_adreno200.so \
+    device/samsung/tass/prebuilt/egl/libq3dtools_adreno200.so:system/lib/egl/libq3dtools_adreno200.so \
+    device/samsung/tass/prebuilt/egl/libEGL_adreno200.so:system/lib/egl/libEGL_adreno200.so \
+    device/samsung/tass/prebuilt/egl/libGLESv2_adreno200.so:system/lib/egl/libGLESv2_adreno200.so \
+    device/samsung/tass/prebuilt/libgsl.so:system/lib/libgsl.so \
+    device/samsung/tass/prebuilt/egl/egl.cfg:system/lib/egl/egl.cfg 
 
 $(call inherit-product-if-exists, vendor/samsung/tass/tass-vendor.mk)
 

@@ -19,7 +19,6 @@ MANUFACTURER=samsung
 
 mkdir -p ./vendor/$MANUFACTURER/$DEVICE/proprietary/
 mkdir -p ./vendor/$MANUFACTURER/$DEVICE/proprietary/lib
-mkdir -p ./vendor/$MANUFACTURER/$DEVICE/proprietary/lib/egl
 mkdir -p ./vendor/$MANUFACTURER/$DEVICE/proprietary/lib/hw
 mkdir -p ./vendor/$MANUFACTURER/$DEVICE/proprietary/etc
 mkdir -p ./vendor/$MANUFACTURER/$DEVICE/proprietary/etc/firmware
@@ -85,7 +84,6 @@ mv ./tass_update/system/lib/libcamera_client.so ./vendor/$MANUFACTURER/$DEVICE/p
 mv ./tass_update/system/lib/libcameraservice.so ./vendor/$MANUFACTURER/$DEVICE/proprietary/lib
 
 # wifi
-mv ./tass_update/system/wifi/ar6000.ko ./vendor/$MANUFACTURER/$DEVICE/proprietary/wifi
 mv ./tass_update/system/wifi/ath6k/AR6003/hw2.0/athtcmd_ram.bin ./vendor/$MANUFACTURER/$DEVICE/proprietary/ath6k/AR6003/hw2.0
 mv ./tass_update/system/wifi/ath6k/AR6003/hw2.0/athwlan.bin.z77 ./vendor/$MANUFACTURER/$DEVICE/proprietary/ath6k/AR6003/hw2.0
 mv ./tass_update/system/wifi/ath6k/AR6003/hw2.0/bdata.SD31.bin ./vendor/$MANUFACTURER/$DEVICE/proprietary/ath6k/AR6003/hw2.0
@@ -118,11 +116,5 @@ mv ./tass_update/system/lib/hw/sensors.default.so ./vendor/$MANUFACTURER/$DEVICE
 mv ./tass_update/system/bin/memsicd ./vendor/$MANUFACTURER/$DEVICE/proprietary/bin
 
 # camera
-mv ./tass_update/system/lib/egl/libGLESv1_CM_adreno200.so ./vendor/$MANUFACTURER/$DEVICE/proprietary/lib/egl
-mv ./tass_update/system/lib/egl/libq3dtools_adreno200.so ./vendor/$MANUFACTURER/$DEVICE/proprietary/lib/egl
-mv ./tass_update/system/lib/egl/libEGL_adreno200.so ./vendor/$MANUFACTURER/$DEVICE/proprietary/lib/egl
-mv ./tass_update/system/lib/egl/libGLESv2_adreno200.so ./vendor/$MANUFACTURER/$DEVICE/proprietary/lib/egl
 mv ./tass_update/system/etc/firmware/yamato_pfp.fw ./vendor/$MANUFACTURER/$DEVICE/proprietary/etc/firmware
 mv ./tass_update/system/etc/firmware/yamato_pm4.fw ./vendor/$MANUFACTURER/$DEVICE/proprietary/etc/firmware
-mv ./tass_update/system/lib/libgsl.so ./vendor/$MANUFACTURER/$DEVICE/proprietary/lib
-mv ./tass_update/system/lib/egl/egl.cfg ./vendor/$MANUFACTURER/$DEVICE/proprietary/lib/egl

@@ -19,10 +19,8 @@ MANUFACTURER=samsung
 
 mkdir -p ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/
 mkdir -p ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/lib
-mkdir -p ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/lib/egl
 mkdir -p ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/lib/hw
 mkdir -p ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/bin
-mkdir -p ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/wifi
 mkdir -p ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/etc
 mkdir -p ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/etc/firmware
 mkdir -p ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/ath6k
@@ -87,7 +85,6 @@ adb pull /system/lib/libcamera_client.so ../../../vendor/$MANUFACTURER/$DEVICE/p
 adb pull /system/lib/libcameraservice.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/lib
 
 # wifi
-adb pull /system/wifi/ar6000.ko ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/wifi
 adb pull /system/wifi/ath6k/AR6003/hw2.0/athtcmd_ram.bin ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/ath6k/AR6003/hw2.0
 adb pull /system/wifi/ath6k/AR6003/hw2.0/athwlan.bin.z77 ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/ath6k/AR6003/hw2.0
 adb pull /system/wifi/ath6k/AR6003/hw2.0/bdata.SD31.bin ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/ath6k/AR6003/hw2.0
@@ -120,14 +117,8 @@ adb pull /system/lib/hw/sensors.default.so ../../../vendor/$MANUFACTURER/$DEVICE
 adb pull /system/bin/memsicd ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/bin
 
 # camera
-adb pull /system/lib/egl/libGLESv1_CM_adreno200.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/lib/egl
-adb pull /system/lib/egl/libq3dtools_adreno200.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/lib/egl
-adb pull /system/lib/egl/libEGL_adreno200.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/lib/egl
-adb pull /system/lib/egl/libGLESv2_adreno200.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/lib/egl
 adb pull /system/etc/firmware/yamato_pfp.fw ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/etc/firmware
 adb pull /system/etc/firmware/yamato_pm4.fw ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/etc/firmware
-adb pull /system/lib/libgsl.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/lib
-adb pull /system/lib/egl/egl.cfg ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/lib/egl
 
 (cat << EOF) | sed s/__DEVICE__/$DEVICE/g | sed s/__MANUFACTURER__/$MANUFACTURER/g > ../../../vendor/$MANUFACTURER/$DEVICE/$DEVICE-vendor-blobs.mk
 # Copyright (C) 2010 The Android Open Source Project
@@ -207,7 +198,6 @@ PRODUCT_COPY_FILES += \\
 
 ## Atheros AR6002 firmware
 PRODUCT_COPY_FILES += \\
-    vendor/__MANUFACTURER__/__DEVICE__/proprietary/wifi/ar6000.ko:system/wifi/ar6000.ko \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/ath6k/AR6003/hw2.0/athtcmd_ram.bin:system/wifi/ath6k/AR6003/hw2.0/athtcmd_ram.bin \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/ath6k/AR6003/hw2.0/athwlan.bin.z77:system/wifi/ath6k/AR6003/hw2.0/athwlan.bin.z77 \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/ath6k/AR6003/hw2.0/bdata.SD31.bin:system/wifi/ath6k/AR6003/hw2.0/bdata.SD31.bin \\
@@ -242,14 +232,8 @@ PRODUCT_COPY_FILES += \\
 	
 ## 3D
 PRODUCT_COPY_FILES += \\
-    vendor/__MANUFACTURER__/__DEVICE__/proprietary/lib/egl/libGLESv1_CM_adreno200.so:system/lib/egl/libGLESv1_CM_adreno200.so \\
-    vendor/__MANUFACTURER__/__DEVICE__/proprietary/lib/egl/libq3dtools_adreno200.so:system/lib/egl/libq3dtools_adreno200.so \\
-    vendor/__MANUFACTURER__/__DEVICE__/proprietary/lib/egl/libEGL_adreno200.so:system/lib/egl/libEGL_adreno200.so \\
-    vendor/__MANUFACTURER__/__DEVICE__/proprietary/lib/egl/libGLESv2_adreno200.so:system/lib/egl/libGLESv2_adreno200.so \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/etc/firmware/yamato_pfp.fw:system/etc/firmware/yamato_pfp.fw \\
-    vendor/__MANUFACTURER__/__DEVICE__/proprietary/etc/firmware/yamato_pm4.fw:system/etc/firmware/yamato_pm4.fw \\
-    vendor/__MANUFACTURER__/__DEVICE__/proprietary/lib/libgsl.so:system/lib/libgsl.so \\
-    vendor/__MANUFACTURER__/__DEVICE__/proprietary/lib/egl/egl.cfg:system/lib/egl/egl.cfg 
+    vendor/__MANUFACTURER__/__DEVICE__/proprietary/etc/firmware/yamato_pm4.fw:system/etc/firmware/yamato_pm4.fw
 
 ## Sensor
 PRODUCT_COPY_FILES += \\
